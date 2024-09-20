@@ -30,6 +30,13 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
+RenderItem* xItem = NULL;
+RenderItem* yItem = NULL;
+RenderItem* zItem = NULL;
+RenderItem* originItem = NULL;
+
+PxTransform x, y, z, o;
+
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -54,6 +61,16 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
+
+	Vector3 xAxis(10, 0, 0), yAxis(0, 10, 0), zAxis(0, 0, 10);
+	x = PxTransform(xAxis.x, xAxis.y, xAxis.z);
+	y = PxTransform(yAxis.x, yAxis.y, yAxis.z);
+	z = PxTransform(zAxis.x, zAxis.y, zAxis.z);
+	o = PxTransform(0.0f, 0.0f, 0.0f);
+	xItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &x, { 1.0, 0.0, 0.0, 1.0 });
+	yItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &y, { 0.0, 1.0, 0.0, 1.0 });
+	zItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &z, { 0.0, 0.0, 1.0, 1.0 });
+	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
 	}
 
 
@@ -84,6 +101,11 @@ void cleanupPhysics(bool interactive)
 	transport->release();
 	
 	gFoundation->release();
+
+	xItem->release();
+	yItem->release();
+	zItem->release();
+	originItem->release();
 	}
 
 // Function called when a key is pressed

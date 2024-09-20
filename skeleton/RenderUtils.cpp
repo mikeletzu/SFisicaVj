@@ -15,7 +15,8 @@ extern void keyPress(unsigned char key, const PxTransform& camera);
 extern PxPhysics* gPhysics;
 extern PxMaterial* gMaterial;
 
-std::vector<const RenderItem*> gRenderItems;
+std::vector<const 
+	*> gRenderItems;
 
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
