@@ -9,6 +9,7 @@
 #include "callbacks.hpp"
 
 #include <iostream>
+#include "Particle.h"
 
 std::string display_text = "This is a test";
 
@@ -34,6 +35,8 @@ RenderItem* xItem = NULL;
 RenderItem* yItem = NULL;
 RenderItem* zItem = NULL;
 RenderItem* originItem = NULL;
+
+Particle* myPop = NULL;
 
 PxTransform x, y, z, o;
 
@@ -71,6 +74,8 @@ void initPhysics(bool interactive)
 	yItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &y, { 0.0, 1.0, 0.0, 1.0 });
 	zItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &z, { 0.0, 0.0, 1.0, 1.0 });
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
+	Vector3 p(0, 0, 0), v(0, 0.01, 0), a(0.000001, 0, 0);
+	myPop = new Particle(p, v, a, 0.01);
 	}
 
 
@@ -80,6 +85,8 @@ void initPhysics(bool interactive)
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
+
+	myPop->integrate(t);
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
@@ -106,6 +113,8 @@ void cleanupPhysics(bool interactive)
 	yItem->release();
 	zItem->release();
 	originItem->release();
+	
+	delete myPop;
 	}
 
 // Function called when a key is pressed
