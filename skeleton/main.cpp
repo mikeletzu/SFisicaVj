@@ -36,6 +36,8 @@ RenderItem* originItem = NULL;
 
 PxTransform x, y, z, o;
 
+ParticleSys* mySys;
+
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -70,7 +72,8 @@ void initPhysics(bool interactive)
 	yItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &y, { 0.0, 1.0, 0.0, 1.0 });
 	zItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &z, { 0.0, 0.0, 1.0, 1.0 });
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
-	Vector3 p(0, 0, 0), v(0, 0.01, 0), a(0.000001, 0, 0);
+
+	mySys = new ParticleSys(explosion);
 }
 
 
@@ -81,9 +84,7 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 	
-	/*for (std::list<Particle*>::iterator it = myPops.begin(); it != myPops.end(); ++it) {
-		(*it)->integrate(t);
-	}*/
+	mySys->update(t);
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);

@@ -18,4 +18,9 @@ void Particle::integrate(double t)
 		vel += 0.5 * acl / mass * dt;
 		t += dt;
 	}
+	lifeTime -= t;
+	if (lifeTime <= 0) {
+		//ME ELIMINO
+		//AL SALIR DE LA ZONA QUIERO ELIMINARME TMBN
+	}
 }

@@ -4,13 +4,42 @@
 #include <iostream>
 #include "Particle.h"
 
+enum PSType
+{
+	fog, explosion
+};
+
+
 class ParticleSys
 {
 public:
-	ParticleSys() {};
-	void fuente();
+	ParticleSys(PSType type);
+	void update(double t);
+	void generate(int amount);
 
 private:
 	std::list<Particle*> myPops;
+	std::pair<Vector3, Vector3> zone;
+	//Media, Desviación y Posición
+	Vector3 vM, vD, aM, aD, pM, pD;
+	int lifeTimeM, lifeTimeD;
 };
+
+/*
+
+	Labores de mantenimiento de las partículas
+		• Actualizar el tiempo que lleva “vivo”
+		• Recorrer la lista de partículas y revisar si cada una de ellas ha de
+		seguir viva o no:
+			• Se ha terminado su tiempo de vida
+			• Está fuera de la zona de interés
+		• Eliminar las partículas que “mueren”
+		• Llamar al update de cada partícula
+
+	Labores de generación de partículas nuevas
+		• Recorrer los distintos generadores
+		• Generar las partículas nuevas
+		• Añadirlas a la lista de partículas
+
+*/
 
