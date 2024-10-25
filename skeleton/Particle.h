@@ -9,9 +9,11 @@ public:
 		pose = physx::PxTransform(Pos);
 		renderItem = new RenderItem(CreateShape(physx::PxSphereGeometry(1.0f)), &pose, { 1.0, 1.0, 1.0, 1.0 });
 	}
-	~Particle() {}
+	~Particle() { DeregisterRenderItem(renderItem); }
 
 	void integrate(double t);
+	float getLT() { return lifeTime; };
+	Vector3 getPos() { return pose.p; };
 
 protected:
 	float damp, mass, lifeTime;

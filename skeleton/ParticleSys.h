@@ -16,6 +16,7 @@ public:
 	ParticleSys(PSType type);
 	void update(double t);
 	void generate(int amount);
+	bool eraseCheck(Particle* p);
 
 private:
 	std::list<Particle*> myPops;
@@ -23,6 +24,7 @@ private:
 	//Media, Desviación y Posición
 	Vector3 vM, vD, aM, aD, pM, pD;
 	int lifeTimeM, lifeTimeD;
+	bool isOutZone(Vector3 p);
 };
 
 /*

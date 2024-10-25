@@ -38,6 +38,8 @@ PxTransform x, y, z, o;
 
 ParticleSys* mySys;
 
+Particle* p;
+
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -74,6 +76,7 @@ void initPhysics(bool interactive)
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
 
 	mySys = new ParticleSys(explosion);
+	p = new Particle({ -200, 100, -200 }, { 0.02, -0.004, 0.02 }, { 0, 0, 0 }, 0, 1, 100);
 }
 
 
@@ -85,6 +88,7 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 	
 	mySys->update(t);
+	p->integrate(t);
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
