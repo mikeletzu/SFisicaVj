@@ -6,7 +6,7 @@
 
 enum PSType
 {
-	fog, explosion
+	fog, explosion, snow
 };
 
 
@@ -25,6 +25,8 @@ private:
 	Vector3 vM, vD, aM, aD, pM, pD;
 	int lifeTimeM, lifeTimeD;
 	bool isOutZone(Vector3 p);
+	int interval;
+	PSType _type;
 };
 
 /*

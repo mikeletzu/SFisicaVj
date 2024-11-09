@@ -1,6 +1,6 @@
 #include "ParticleSys.h"
 
-ParticleSys::ParticleSys(PSType type)
+ParticleSys::ParticleSys(PSType type): _type(type)
 {
 	switch (type)
 	{
@@ -11,26 +11,43 @@ ParticleSys::ParticleSys(PSType type)
 		aD = { 0.000000000001, 0.000000000001, 0.000000000001 };
 		pM = { 0.0, 0.0, 0.0 };
 		pD = { 10.0, 10.0, 10.0 };
-		lifeTimeM = 100;
+		lifeTimeM = 1000;
 		lifeTimeD = 2;
+		zone = { {-30,-30,-30}, {20,20,20} };
+		interval = -1;
 		break;
 
 	case explosion:
-		vM = { 0.0001, 0.0001, 0.0001 };
+		vM = { 0.001, 0.001, 0.001 };
 		vD = { 0.01, 0.01, 0.01 };
-		aM = { 0.000001, 0.000001, 0.000001 };
-		aD = { 0.00001, 0.00001, 0.00001 };
+		aM = { 0.0001, 0.0001, 0.0001 };
+		aD = { 0.001, 0.001, 0.001 };
 		pM = { 0.0, 0.0, 0.0 };
 		pD = { 1.0, 1.0, 1.0 };
 		lifeTimeM = 500;
 		lifeTimeD = 2;
+		zone = { {-30,-30,-30}, {20,20,20} };
+		interval = -1;
 		break;
+
+	case snow:
+		vM = { 0.0, -0.05, 0.0 };
+		vD = { 0.00000001, 0.01, 0.00000001 };
+		aM = { 0.0, -0.0001, 0.0 };
+		aD = { 0.00000001, 0.000000001, 0.00000001 };
+		pM = { 0.0, 80.0, 0.0 };
+		pD = { 10.0, 0.000001, 10.0 };
+		lifeTimeM = 5000;
+		lifeTimeD = 2;
+		zone = { {-300,-300,-300}, {200,200,200} };
+		interval = 200;
+		break;
+
 	default:
 		break;
 	}
 
-	zone = { {-30,-30,-30}, {20,20,20} };
-	generate(100);
+	generate(200);
 }
 
 void ParticleSys::update(double t)
@@ -44,6 +61,14 @@ void ParticleSys::update(double t)
 		}
 		else
 			++it;
+	}
+	if (_type == snow) {
+		--interval;
+		std::cout << interval << std::endl;
+	}
+	if (!interval) {
+		generate(100);
+		interval = 200;
 	}
 }
 
@@ -63,7 +88,7 @@ void ParticleSys::generate(int amount)
 	std::normal_distribution<double> distributionLT(lifeTimeM, lifeTimeD);
 
 	for (int i = 0; i < amount; ++i) {
-		std::cout << i << std::endl;
+		//std::cout << i << std::endl;
 		float vN_x = distributionVx(generator);
 		//std::cout << "vN_x: " << vN_x << std::endl;
 		float vN_y = distributionVy(generator);
@@ -83,7 +108,7 @@ void ParticleSys::generate(int amount)
 		float pN_z = distributionPz(generator);
 		//std::cout << "pN_z: " << pN_z << std::endl;
 		float lifeTimeN = distributionLT(generator);
-		std::cout << "lifeTimeN: " << lifeTimeN << std::endl;
+		//std::cout << "lifeTimeN: " << lifeTimeN << std::endl;
 		
 		myPops.push_back(new Particle({ pN_x, pN_y, pN_z }, {vN_x, vN_y, vN_z}, { aN_x, aN_y, aN_z }, 0.01, 1, lifeTimeN));
 	}
