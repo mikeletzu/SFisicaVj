@@ -8,9 +8,11 @@
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
 
+#include "ParticleShape.h"
 #include "ParticleSys.h"
 #include "GravityGenerator.h"
 #include "WhirlGenerator.h"
+#include "SpringGenerator.h"
 
 std::string display_text = "This is a test";
 
@@ -79,13 +81,18 @@ void initPhysics(bool interactive)
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
 
 	mySysA = new ParticleSys(fog);
-	WindGenerator* fA = new WhirlGenerator(0.1, 0.2, { -30,-30,-30 }, { 200,200,200 } , { 10.0, 10.0, 0.0 }, {0.0, 0.0, 0.0}, true);
+	ParticleShape* anchor = new ParticleShape({ -20, 100, -20 }, { 0.0, 0.0, 0.0 }, { 0, 0, 0 }, 0, 1, 100);
+	SpringGenerator* fA = new SpringGenerator(anchor, 0.1, {0.0, 0.0, 0.0}, true);
 	mySysA->addForce(fA);
+	
+	/*mySysA = new ParticleSys(fog);
+	WindGenerator* fA = new WhirlGenerator(0.1, 0.2, { -30,-30,-30 }, { 200,200,200 } , { 50.0, 50.0, 0.0 }, {0.0, 0.0, 0.0}, true);
+	mySysA->addForce(fA);*/
 
-	mySysB = new ParticleSys(fog);
-	GravityGenerator* fB = new GravityGenerator({ 0.0, -100.0, 0.0 }, true);
-	mySysB->addForce(fB);
-	//p = new Particle({ -200, 100, -200 }, { 0.02, -0.004, 0.02 }, { 0, 0, 0 }, 0, 1, 100);
+	//mySysB = new ParticleSys(fog);
+	//GravityGenerator* fB = new GravityGenerator({ 0.0, -100.0, 0.0 }, true);
+	//mySysB->addForce(fB);
+	p = new Particle({ 0, 80, 0 }, { 0.0, 0.0, 0.0 }, { 0, 0, 0 }, 0, 1, 100);
 }
 
 
@@ -95,9 +102,11 @@ void initPhysics(bool interactive)
 void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
-	
-	mySysA->update(t);
-	mySysB->update(t);
+
+	if (mySysA != nullptr)
+		mySysA->update(t);
+	if (mySysB != nullptr)
+		mySysB->update(t);
 	if (p != nullptr)
 		p->integrate(t);
 

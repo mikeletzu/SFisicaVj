@@ -18,6 +18,8 @@
     <ClCompile Include="WindGenerator.cpp" />
     <ClCompile Include="Zone.cpp" />
     <ClCompile Include="WhirlGenerator.cpp" />
+    <ClCompile Include="SpringGenerator.cpp" />
+    <ClCompile Include="ParticleShape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -37,6 +39,8 @@
     <ClInclude Include="WindGenerator.h" />
     <ClInclude Include="Zone.h" />
     <ClInclude Include="WhirlGenerator.h" />
+    <ClInclude Include="SpringGenerator.h" />
+    <ClInclude Include="ParticleShape.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
