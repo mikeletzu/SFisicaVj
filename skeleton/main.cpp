@@ -9,6 +9,8 @@
 #include "callbacks.hpp"
 
 #include "ParticleSys.h"
+#include "GravityGenerator.h"
+#include "WhirlGenerator.h"
 
 std::string display_text = "This is a test";
 
@@ -36,7 +38,8 @@ RenderItem* originItem = NULL;
 
 PxTransform x, y, z, o;
 
-ParticleSys* mySys;
+ParticleSys* mySysA;
+ParticleSys* mySysB;
 
 Particle* p = nullptr;
 
@@ -75,7 +78,13 @@ void initPhysics(bool interactive)
 	zItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &z, { 0.0, 0.0, 1.0, 1.0 });
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
 
-	mySys = new ParticleSys(fog);
+	mySysA = new ParticleSys(fog);
+	WindGenerator* fA = new WhirlGenerator(0.1, 0.2, { -30,-30,-30 }, { 200,200,200 } , { 10.0, 10.0, 0.0 }, {0.0, 0.0, 0.0}, true);
+	mySysA->addForce(fA);
+
+	mySysB = new ParticleSys(fog);
+	GravityGenerator* fB = new GravityGenerator({ 0.0, -100.0, 0.0 }, true);
+	mySysB->addForce(fB);
 	//p = new Particle({ -200, 100, -200 }, { 0.02, -0.004, 0.02 }, { 0, 0, 0 }, 0, 1, 100);
 }
 
@@ -87,7 +96,8 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 	
-	//mySys->update(t);
+	mySysA->update(t);
+	mySysB->update(t);
 	if (p != nullptr)
 		p->integrate(t);
 

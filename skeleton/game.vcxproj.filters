@@ -16,6 +16,8 @@
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="GravityGenerator.cpp" />
     <ClCompile Include="WindGenerator.cpp" />
+    <ClCompile Include="Zone.cpp" />
+    <ClCompile Include="WhirlGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -33,6 +35,8 @@
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GravityGenerator.h" />
     <ClInclude Include="WindGenerator.h" />
+    <ClInclude Include="Zone.h" />
+    <ClInclude Include="WhirlGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

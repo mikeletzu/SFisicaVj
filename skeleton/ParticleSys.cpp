@@ -13,7 +13,7 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 		pD = { 10.0, 10.0, 10.0 };
 		lifeTimeM = 1000;
 		lifeTimeD = 2;
-		zone = { {-30,-30,-30}, {20,20,20} };
+		_zone = new Zone( {-30,-30,-30}, {200,200,200} );
 		interval = -1;
 		break;
 
@@ -26,7 +26,7 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 		pD = { 1.0, 1.0, 1.0 };
 		lifeTimeM = 500;
 		lifeTimeD = 2;
-		zone = { {-30,-30,-30}, {20,20,20} };
+		_zone = new Zone( {-30,-30,-30}, {20,20,20} );
 		interval = -1;
 		break;
 
@@ -39,7 +39,7 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 		pD = { 10.0, 0.000001, 10.0 };
 		lifeTimeM = 5000;
 		lifeTimeD = 2;
-		zone = { {-300,-300,-300}, {200,200,200} };
+		_zone = new Zone( {-300,-300,-300}, {200,200,200} );
 		interval = 200;
 		break;
 
@@ -54,7 +54,13 @@ void ParticleSys::update(double t)
 {
 	std::list<Particle*>::iterator it = myPops.begin();
 	while(it != myPops.end()) {
+
+		for (auto jt = forces.begin(); jt != forces.end(); ++jt) {
+			(*jt)->update(*it, t);
+		}
+
 		(*it)->integrate(t);
+
 		if (eraseCheck(*it)) {
 			delete (*it);
 			it = myPops.erase(it);
@@ -111,18 +117,18 @@ void ParticleSys::generate(int amount)
 		//std::cout << "lifeTimeN: " << lifeTimeN << std::endl;
 		
 		myPops.push_back(new Particle({ pN_x, pN_y, pN_z }, {vN_x, vN_y, vN_z}, { aN_x, aN_y, aN_z }, 0.01, 1, lifeTimeN));
-	}
+	}																							//	  damp, m
 }
 
 bool ParticleSys::eraseCheck(Particle* p)
 {
-	if (p->getLT() <= 0.0 || isOutZone(p->getPos()))
+	if (p->getLT() <= 0.0 || _zone->isOut(p->getPos()))
 		return true;
 
 	return false;
 }
 
-bool ParticleSys::isOutZone(Vector3 p)
+void ParticleSys::addForce(ForceGenerator* f)
 {
-	return (p.x < zone.first.x || p.x > zone.second.x || p.y < zone.first.y || p.y > zone.second.y || p.z < zone.first.z || p.z > zone.second.z);
+	forces.push_back(f);
 }

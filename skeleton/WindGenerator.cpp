@@ -1,1 +1,16 @@
 #include "WindGenerator.h"
+#include "Particle.h"
+
+void WindGenerator::update(Particle* pop, double t)
+{
+	if (!_zone->isOut(pop->getPos()))
+	{
+		//compute the drag force
+		Vector3 v = pop->getVel();
+		Vector3 dif = _f - v;
+		Vector3 dragF = (_k1 * dif) + (_k2 * dif.magnitude() * dif);
+
+		//Apply the drag force
+		pop->addForce(dragF);
+	}
+}
