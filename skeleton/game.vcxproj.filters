@@ -13,13 +13,26 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Proyectil.cpp" />
     <ClCompile Include="ParticleSys.cpp" />
-    <ClCompile Include="ForceGenerator.cpp" />
-    <ClCompile Include="GravityGenerator.cpp" />
-    <ClCompile Include="WindGenerator.cpp" />
     <ClCompile Include="Zone.cpp" />
-    <ClCompile Include="WhirlGenerator.cpp" />
-    <ClCompile Include="SpringGenerator.cpp" />
     <ClCompile Include="ParticleShape.cpp" />
+    <ClCompile Include="ForceGenerator.cpp">
+      <Filter>Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityGenerator.cpp">
+      <Filter>Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringGenerator.cpp">
+      <Filter>Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="WhirlGenerator.cpp">
+      <Filter>Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="WindGenerator.cpp">
+      <Filter>Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="PopForceRegistry.cpp" />
+    <ClCompile Include="HairTieGenerator.cpp" />
+    <ClCompile Include="BuoyancyForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -34,17 +47,33 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Proyectil.h" />
     <ClInclude Include="ParticleSys.h" />
-    <ClInclude Include="ForceGenerator.h" />
-    <ClInclude Include="GravityGenerator.h" />
-    <ClInclude Include="WindGenerator.h" />
     <ClInclude Include="Zone.h" />
-    <ClInclude Include="WhirlGenerator.h" />
-    <ClInclude Include="SpringGenerator.h" />
     <ClInclude Include="ParticleShape.h" />
+    <ClInclude Include="ForceGenerator.h">
+      <Filter>Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityGenerator.h">
+      <Filter>Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringGenerator.h">
+      <Filter>Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="WhirlGenerator.h">
+      <Filter>Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="WindGenerator.h">
+      <Filter>Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="PopForceRegistry.h" />
+    <ClInclude Include="HairTieGenerator.h" />
+    <ClInclude Include="BuoyancyForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
       <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generators">
+      <UniqueIdentifier>{2487d035-3a07-4166-aba1-1ce18478ea30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

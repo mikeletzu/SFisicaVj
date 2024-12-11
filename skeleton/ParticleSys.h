@@ -2,12 +2,17 @@
 #include <list>
 #include <random>
 #include <iostream>
-#include "Particle.h"
+#include "ParticleShape.h"
 #include "Zone.h"
+#include "HairTieGenerator.h"
+#include "GravityGenerator.h"
+#include "PopForceRegistry.h"
+#include "BuoyancyForceGenerator.h"
+
 
 enum PSType
 {
-	fog, explosion, snow
+	fog, explosion, snow, springs, buoyancy
 };
 
 
@@ -21,15 +26,22 @@ public:
 	void addForce(ForceGenerator* f);
 
 private:
-	std::list<Particle*> myPops;
 	Zone* _zone;
+	std::list<Particle*> myPops;
+	std::list<ForceGenerator*> myForces;
+	PopForceRegistry myForceReg;
+
 	//Media, Desviación y Posición
 	Vector3 vM, vD, aM, aD, pM, pD;
 	int lifeTimeM, lifeTimeD;
 	bool isOutZone(Vector3 p);
 	int interval;
 	PSType _type;
-	std::list<ForceGenerator*> forces;
+
+	void generateSpringAnchDemo();
+	void generateSpringDuoDemo();
+	void generateHairTieDemo();
+	void generateBuoyancyDemo();
 };
 
 /*

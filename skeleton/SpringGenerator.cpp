@@ -2,10 +2,9 @@
 
 void SpringGenerator::update(Particle* pop, double t)
 {
-	Vector3 f = -_k * (pop->getPos() - anchor->getPos() - _l0);
-}
-
-void SpringGenerator::initL0(Vector3 popPos)
-{
-	Vector3 diff = popPos - anchor->getPos();
+	Vector3 relative_pos_vector = _anchor->getPos() - pop->getPos();
+	const float length = relative_pos_vector.normalize();
+	const float delta_x = length - _l0;
+	Vector3 f = relative_pos_vector * delta_x * _k;
+	pop->addForce(f);
 }

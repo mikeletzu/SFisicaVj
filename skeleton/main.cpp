@@ -12,9 +12,8 @@
 #include "ParticleSys.h"
 #include "GravityGenerator.h"
 #include "WhirlGenerator.h"
-#include "SpringGenerator.h"
 
-std::string display_text = "This is a test";
+std::string display_text = "Simulacion Fisica - Mikele López de la Hoz";
 
 using namespace physx;
 
@@ -80,19 +79,9 @@ void initPhysics(bool interactive)
 	zItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &z, { 0.0, 0.0, 1.0, 1.0 });
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
 
-	mySysA = new ParticleSys(fog);
-	ParticleShape* anchor = new ParticleShape({ -20, 100, -20 }, { 0.0, 0.0, 0.0 }, { 0, 0, 0 }, 0, 1, 100);
-	SpringGenerator* fA = new SpringGenerator(anchor, 0.1, {0.0, 0.0, 0.0}, true);
-	mySysA->addForce(fA);
+	//mySysA = new ParticleSys(springs);
 	
-	/*mySysA = new ParticleSys(fog);
-	WindGenerator* fA = new WhirlGenerator(0.1, 0.2, { -30,-30,-30 }, { 200,200,200 } , { 50.0, 50.0, 0.0 }, {0.0, 0.0, 0.0}, true);
-	mySysA->addForce(fA);*/
-
-	//mySysB = new ParticleSys(fog);
-	//GravityGenerator* fB = new GravityGenerator({ 0.0, -100.0, 0.0 }, true);
-	//mySysB->addForce(fB);
-	p = new Particle({ 0, 80, 0 }, { 0.0, 0.0, 0.0 }, { 0, 0, 0 }, 0, 1, 100);
+	mySysB = new ParticleSys(buoyancy);
 }
 
 

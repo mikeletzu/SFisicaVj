@@ -15,6 +15,7 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 		lifeTimeD = 2;
 		_zone = new Zone( {-30,-30,-30}, {200,200,200} );
 		interval = -1;
+		generate(200);
 		break;
 
 	case explosion:
@@ -28,6 +29,7 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 		lifeTimeD = 2;
 		_zone = new Zone( {-30,-30,-30}, {20,20,20} );
 		interval = -1;
+		generate(200);
 		break;
 
 	case snow:
@@ -41,23 +43,36 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 		lifeTimeD = 2;
 		_zone = new Zone( {-300,-300,-300}, {200,200,200} );
 		interval = 200;
+		generate(200);
 		break;
-
+	case springs:
+		_zone = new Zone({ -3000,-3000,-3000 }, { 2000,2000,2000 });
+		generateSpringAnchDemo();
+		generateSpringDuoDemo();
+		generateHairTieDemo();
+		break;
+	case buoyancy:
+		_zone = new Zone({ -3000,-3000,-3000 }, { 2000,2000,2000 });
+		generateBuoyancyDemo();
+		break;
 	default:
 		break;
 	}
-
-	generate(200);
 }
 
 void ParticleSys::update(double t)
 {
 	std::list<Particle*>::iterator it = myPops.begin();
+	for (auto it = myForceReg.begin(); it != myForceReg.end(); ++it) {
+		it->second->update(it->first, t);
+	}
 	while(it != myPops.end()) {
 
-		for (auto jt = forces.begin(); jt != forces.end(); ++jt) {
+		/*
+		for (auto jt = myForces.begin(); jt != myForces.end(); ++jt) {
 			(*jt)->update(*it, t);
 		}
+		*/
 
 		(*it)->integrate(t);
 
@@ -130,5 +145,99 @@ bool ParticleSys::eraseCheck(Particle* p)
 
 void ParticleSys::addForce(ForceGenerator* f)
 {
-	forces.push_back(f);
+	myForces.push_back(f);
+}
+
+void ParticleSys::generateSpringAnchDemo() {
+	Particle* anch = new ParticleShape({ 0.0, 60.0, 0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 0.85, 1, 600);
+	myPops.push_back(anch);
+	Particle* p = new Particle({ 0.0,40.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 0.85, 2, 600);
+	myPops.push_back(p);
+	int l0 = (anch->getPos() - p->getPos()).magnitude();
+	SpringGenerator* f1 = new SpringGenerator(anch, 1, l0);
+	addForce(f1);
+	myForceReg.add(p, f1);
+	GravityGenerator* f3 = new GravityGenerator({ 0.0, -100.0, 0.0 }, true);
+	addForce(f3);
+	myForceReg.add(p, f3);
+}
+
+void ParticleSys::generateSpringDuoDemo() {
+	Particle* p1 = new ParticleShape({ -10.0, 30.0, 10.0 }, { -5.0,5.0,0.0 }, { 0.0,0.0,0.0 }, 0.85, 1, 600, true, {0.2, 0.6, 0.9, 0.1});
+	myPops.push_back(p1);
+	Particle* p2 = new ParticleShape({ 10.0,30.0,-10.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 0.85, 2, 600, false, { 0.2, 0.6, 0.9, 0.1 });
+	myPops.push_back(p2);
+	int l0 = (p1->getPos() - p2->getPos()).magnitude();
+	SpringGenerator* f1 = new SpringGenerator(p2, 0.2, l0);
+	addForce(f1);
+	myForceReg.add(p1, f1);
+	SpringGenerator* f2 = new SpringGenerator(p1, 20, l0);
+	addForce(f2);
+	myForceReg.add(p2, f2);
+
+	Particle* p3 = new ParticleShape({ -10.0, 30.0, -10.0 }, { 5.0,5.0,-5.0 }, { 0.0,0.0,0.0 }, 0.85, 1, 600, true, { 0.9, 0.6, 0.9, 0.1 });
+	myPops.push_back(p3);
+	Particle* p4 = new ParticleShape({ -10.0,30.0,-10.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 0.85, 2, 600, false, { 0.9, 0.6, 0.9, 0.1 });
+	myPops.push_back(p4);
+	l0 = (p3->getPos() - p4->getPos()).magnitude();
+	SpringGenerator* f4 = new SpringGenerator(p4, 0.6, l0);
+	addForce(f4);
+	myForceReg.add(p3, f4);
+	SpringGenerator* f5 = new SpringGenerator(p3, 2, l0);
+	addForce(f5);
+	myForceReg.add(p4, f5);
+
+	GravityGenerator* f3 = new GravityGenerator({ 0.0, -1000.0, 0.0 }, true);
+	addForce(f3);
+	myForceReg.add(p2, f3);
+	myForceReg.add(p4, f3);
+}
+
+void ParticleSys::generateHairTieDemo() {
+	ParticleShape* other = new ParticleShape({ float(10.0 + cos(0) * 5.0), float(10.0 + sin(0) * 5.0), -float(10.0 + cos(0) * 5.0) }, { 0.0,-10.0,-10.0 }, { 0.0,0.0,0.0 }, 0.85, 1, 600, false, { 0.0, 0.0, 0.0, 0.1 });
+	ParticleShape* aux = other;
+	myPops.push_back(other);
+	for (int i = 1; i < 10; ++i) {
+		float angle = 2 * 3.14159 * i / 11;  // Angle for each point
+		ParticleShape* p = new ParticleShape({ float(10.0 + cos(angle)*5.0), float(10.0 + sin(angle) * 5.0), -float(10.0 + cos(angle) * 5.0) }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 0.85, 1, 600, false, { float(i/10.0 + 0.3), float(i / 10.0 + 0.3), float(i / 10.0 + 0.3), 0.1 });
+		myPops.push_back(p);
+
+		int l0 = (other->getPos() - p->getPos()).magnitude();
+		HairTieGenerator* fA = new HairTieGenerator(other, 0.2, l0-1);
+		addForce(fA);
+		myForceReg.add(p, fA);
+		HairTieGenerator* fB = new HairTieGenerator(p, 0.2, l0 - 1);
+		addForce(fB);
+		myForceReg.add(other, fB);
+
+		other = p;
+	}
+	int l0 = (other->getPos() - aux->getPos()).magnitude();
+	HairTieGenerator* fA = new HairTieGenerator(other, 0.2, l0 - 1);
+	addForce(fA);
+	myForceReg.add(aux, fA);
+	HairTieGenerator* fB = new HairTieGenerator(aux, 0.2, l0 - 1);
+	addForce(fB);
+	myForceReg.add(other, fB);
+}
+
+
+void ParticleSys::generateBuoyancyDemo()
+{
+	ParticleShape* p1 = new ParticleShape(Vector3(-20.0, 15.0, -20.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 1, 6, 6000, true, Vector4(1.0, 0.8, 1.0, 1.0), Vector3(1, 2, 1));
+	myPops.push_back(p1);
+	ParticleShape* p2 = new ParticleShape(Vector3(-30.0, 0.0, 15.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 1, 6, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
+	myPops.push_back(p2);
+	ParticleShape* p3 = new ParticleShape(Vector3(15.0, -15.0, -30.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 1, 6, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
+	myPops.push_back(p3);
+
+	BuoyancyForceGenerator* b = new BuoyancyForceGenerator(1000, Vector3(0, 0, 0));
+	myForceReg.add(p1, b);
+	myForceReg.add(p2, b);
+	myForceReg.add(p3, b);
+
+	GravityGenerator* g = new GravityGenerator(Vector3(0, -9.8, 0));
+	myForceReg.add(p1, g);
+	myForceReg.add(p2, g);
+	myForceReg.add(p3, g);
 }
