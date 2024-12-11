@@ -9,7 +9,10 @@
 #include "callbacks.hpp"
 
 #include "ParticleShape.h"
+#include "RigidDinBody.h"
+
 #include "ParticleSys.h"
+
 #include "GravityGenerator.h"
 #include "WhirlGenerator.h"
 
@@ -39,8 +42,10 @@ RenderItem* originItem = NULL;
 
 PxTransform x, y, z, o;
 
-ParticleSys* mySysA;
-ParticleSys* mySysB;
+ParticleSys* mySysA = nullptr;
+ParticleSys* mySysB = nullptr;
+
+RigidDinBody* dinBody = nullptr;
 
 Particle* p = nullptr;
 
@@ -79,9 +84,18 @@ void initPhysics(bool interactive)
 	zItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &z, { 0.0, 0.0, 1.0, 1.0 });
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
 
+	//Generar suelo
+	PxRigidStatic* Suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
+	PxShape* shape = CreateShape(PxBoxGeometry(100, 0.1, 100));
+	Suelo->attachShape(*shape);
+	gScene->addActor(*Suelo);
+	RenderItem* SueloRenderItem = new RenderItem(shape, Suelo, { 0,1,0.3,1 });
+
 	//mySysA = new ParticleSys(springs);
-	
-	mySysB = new ParticleSys(buoyancy);
+	//mySysB = new ParticleSys(buoyancy);
+
+	dinBody = new RigidDinBody(gScene, gPhysics, Vector4(1.0, 1.0, 0.0, 1.0), PxTransform({ 0,60,0 }), Vector3(0.0, 1.0, 0.0), Vector3(10.0, 10.0, 0.0), 600, 0.3, true, Vector3(3.0, 3.0, 3.0));
+
 }
 
 

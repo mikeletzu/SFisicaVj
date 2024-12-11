@@ -31,8 +31,13 @@
       <Filter>Generators</Filter>
     </ClCompile>
     <ClCompile Include="PopForceRegistry.cpp" />
-    <ClCompile Include="HairTieGenerator.cpp" />
-    <ClCompile Include="BuoyancyForceGenerator.cpp" />
+    <ClCompile Include="RigidDinBody.cpp" />
+    <ClCompile Include="BuoyancyForceGenerator.cpp">
+      <Filter>Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="HairTieGenerator.cpp">
+      <Filter>Generators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -65,8 +70,13 @@
       <Filter>Generators</Filter>
     </ClInclude>
     <ClInclude Include="PopForceRegistry.h" />
-    <ClInclude Include="HairTieGenerator.h" />
-    <ClInclude Include="BuoyancyForceGenerator.h" />
+    <ClInclude Include="RigidDinBody.h" />
+    <ClInclude Include="BuoyancyForceGenerator.h">
+      <Filter>Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="HairTieGenerator.h">
+      <Filter>Generators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
