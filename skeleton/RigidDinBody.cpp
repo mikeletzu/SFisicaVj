@@ -24,15 +24,15 @@ RigidDinBody::RigidDinBody(physx::PxScene* scene, physx::PxPhysics* phys, Vector
 		
 		_body = new_solid;
 
-		// Calculo automatico:
-		// physx::PxRigidBodyExt::updateMassAndInertia(*new_solid, Density);
 		// Calculo a mano:
 		float mass = _density * boxSize.x * boxSize.y * boxSize.z;
 		float iH = (1 / 12) * mass * (boxSize.x * boxSize.x + boxSize.z * boxSize.z);
 		float iW = (1 / 12) * mass * (boxSize.z * boxSize.z + boxSize.y * boxSize.y);
 		float iD = (1 / 12) * mass * (boxSize.x * boxSize.x + boxSize.y * boxSize.y);
 		_body->setMassSpaceInertiaTensor({iH,iW,iD});
-		
+		// Calculo automatico:
+		//physx::PxRigidBodyExt::updateMassAndInertia(*new_solid, Density);
+
 	}
 
 RigidDinBody::~RigidDinBody()

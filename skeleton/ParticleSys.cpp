@@ -62,10 +62,11 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 
 void ParticleSys::update(double t)
 {
-	std::list<Particle*>::iterator it = myPops.begin();
 	for (auto it = myForceReg.begin(); it != myForceReg.end(); ++it) {
 		it->second->update(it->first, t);
 	}
+
+	std::list<Particle*>::iterator it = myPops.begin();
 	while(it != myPops.end()) {
 
 		/*

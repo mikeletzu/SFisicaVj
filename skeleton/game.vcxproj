@@ -267,6 +267,7 @@
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
+    <ClCompile Include="RigidBodySys.cpp" />
     <ClCompile Include="RigidDinBody.cpp" />
     <ClCompile Include="SpringGenerator.cpp" />
     <ClCompile Include="WhirlGenerator.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="RigidBodySys.h" />
     <ClInclude Include="RigidDinBody.h" />
     <ClInclude Include="SpringGenerator.h" />
     <ClInclude Include="WhirlGenerator.h" />

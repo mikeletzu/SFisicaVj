@@ -7,14 +7,8 @@
     <ClCompile Include="Render\Render.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="callbacks.cpp" />
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="Proyectil.cpp" />
-    <ClCompile Include="ParticleSys.cpp" />
-    <ClCompile Include="Zone.cpp" />
-    <ClCompile Include="ParticleShape.cpp" />
     <ClCompile Include="ForceGenerator.cpp">
       <Filter>Generators</Filter>
     </ClCompile>
@@ -30,13 +24,38 @@
     <ClCompile Include="WindGenerator.cpp">
       <Filter>Generators</Filter>
     </ClCompile>
-    <ClCompile Include="PopForceRegistry.cpp" />
-    <ClCompile Include="RigidDinBody.cpp" />
     <ClCompile Include="BuoyancyForceGenerator.cpp">
       <Filter>Generators</Filter>
     </ClCompile>
     <ClCompile Include="HairTieGenerator.cpp">
       <Filter>Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSys.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="PopForceRegistry.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodySys.cpp">
+      <Filter>Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleShape.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Proyectil.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidDinBody.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Zone.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUtils.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,13 +66,7 @@
     <ClInclude Include="Render\Render.h">
       <Filter>Render</Filter>
     </ClInclude>
-    <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="callbacks.hpp" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="Proyectil.h" />
-    <ClInclude Include="ParticleSys.h" />
-    <ClInclude Include="Zone.h" />
-    <ClInclude Include="ParticleShape.h" />
     <ClInclude Include="ForceGenerator.h">
       <Filter>Generators</Filter>
     </ClInclude>
@@ -69,13 +82,38 @@
     <ClInclude Include="WindGenerator.h">
       <Filter>Generators</Filter>
     </ClInclude>
-    <ClInclude Include="PopForceRegistry.h" />
-    <ClInclude Include="RigidDinBody.h" />
     <ClInclude Include="BuoyancyForceGenerator.h">
       <Filter>Generators</Filter>
     </ClInclude>
     <ClInclude Include="HairTieGenerator.h">
       <Filter>Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSys.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="PopForceRegistry.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodySys.h">
+      <Filter>Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleShape.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Proyectil.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidDinBody.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUtils.hpp">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +122,15 @@
     </Filter>
     <Filter Include="Generators">
       <UniqueIdentifier>{2487d035-3a07-4166-aba1-1ce18478ea30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Systems">
+      <UniqueIdentifier>{032029bb-766b-4067-9c15-4fd4dbd3301f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elements">
+      <UniqueIdentifier>{ddce59a4-c3f8-406e-8433-904478980255}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{ca67d3de-0d59-410f-9094-8f8db02fa4de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

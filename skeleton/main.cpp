@@ -12,6 +12,7 @@
 #include "RigidDinBody.h"
 
 #include "ParticleSys.h"
+#include "RigidBodySys.h"
 
 #include "GravityGenerator.h"
 #include "WhirlGenerator.h"
@@ -44,6 +45,7 @@ PxTransform x, y, z, o;
 
 ParticleSys* mySysA = nullptr;
 ParticleSys* mySysB = nullptr;
+RigidBodySys* mySysC = nullptr;
 
 RigidDinBody* dinBody = nullptr;
 
@@ -93,9 +95,7 @@ void initPhysics(bool interactive)
 
 	//mySysA = new ParticleSys(springs);
 	//mySysB = new ParticleSys(buoyancy);
-
-	dinBody = new RigidDinBody(gScene, gPhysics, Vector4(1.0, 1.0, 0.0, 1.0), PxTransform({ 0,60,0 }), Vector3(0.0, 1.0, 0.0), Vector3(10.0, 10.0, 0.0), 600, 0.3, true, Vector3(3.0, 3.0, 3.0));
-
+	mySysC = new RigidBodySys(gScene, gPhysics);
 }
 
 
