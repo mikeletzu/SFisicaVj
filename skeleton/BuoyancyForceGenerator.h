@@ -7,7 +7,7 @@ class BuoyancyForceGenerator :
 {
 public:
 	BuoyancyForceGenerator(float d, Vector3 pos); //pos para la superficie del agua
-	virtual void updateForce(Particle* particle, double t);
+	virtual void update(Particle* particle, double t) override;
 	virtual ~BuoyancyForceGenerator();
 	void addMass(float m);
 

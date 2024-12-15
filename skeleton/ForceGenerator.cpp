@@ -3,5 +3,5 @@
 
 void ForceGenerator::update(Particle* pop, double t)
 {
-	pop->addForce(_f * t);
+	pop->addForce(_f);
 }

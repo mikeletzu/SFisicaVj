@@ -9,7 +9,7 @@ class PopForceRegistry :
 public:
     PopForceRegistry();
     void add(Particle* pop, ForceGenerator* fgen) {
-        insert({ pop, fgen });
+        auto it = insert({ pop, fgen });
     }
 };
 

@@ -87,15 +87,17 @@ void initPhysics(bool interactive)
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
 
 	//Generar suelo
+	/*
 	PxRigidStatic* Suelo = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
 	PxShape* shape = CreateShape(PxBoxGeometry(100, 0.1, 100));
 	Suelo->attachShape(*shape);
 	gScene->addActor(*Suelo);
 	RenderItem* SueloRenderItem = new RenderItem(shape, Suelo, { 0,1,0.3,1 });
+	*/
 
 	//mySysA = new ParticleSys(springs);
-	//mySysB = new ParticleSys(buoyancy);
-	mySysC = new RigidBodySys(gScene, gPhysics);
+	mySysB = new ParticleSys(buoyancy);
+	//mySysC = new RigidBodySys(gScene, gPhysics);
 }
 
 

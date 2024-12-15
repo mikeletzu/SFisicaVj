@@ -62,11 +62,19 @@ ParticleSys::ParticleSys(PSType type): _type(type)
 
 void ParticleSys::update(double t)
 {
+	std::cout << "ForceRegUpdate: " << std::endl;
+
 	for (auto it = myForceReg.begin(); it != myForceReg.end(); ++it) {
-		it->second->update(it->first, t);
+		if(it->second == nullptr)
+			std::cout << "null pop: " << std::endl;
+		else
+			it->second->update(it->first, t);		
 	}
 
+	std::cout << "MyPops integrate: " << std::endl;
+
 	std::list<Particle*>::iterator it = myPops.begin();
+	int i = 0;
 	while(it != myPops.end()) {
 
 		/*
@@ -75,14 +83,18 @@ void ParticleSys::update(double t)
 		}
 		*/
 
+		std::cout << "pop" << i << " ";
 		(*it)->integrate(t);
 
 		if (eraseCheck(*it)) {
+			myForceReg.erase(*it);
 			delete (*it);
 			it = myPops.erase(it);
 		}
 		else
 			++it;
+
+		++i;
 	}
 	if (_type == snow) {
 		--interval;
@@ -225,11 +237,11 @@ void ParticleSys::generateHairTieDemo() {
 
 void ParticleSys::generateBuoyancyDemo()
 {
-	ParticleShape* p1 = new ParticleShape(Vector3(-20.0, 15.0, -20.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 1, 6, 6000, true, Vector4(1.0, 0.8, 1.0, 1.0), Vector3(1, 2, 1));
+	ParticleShape* p1 = new ParticleShape(Vector3(-20.0, 1.0, -20.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 2000, 6000, true, Vector4(1.0, 0.8, 1.0, 1.0), Vector3(1, 2, 1));
 	myPops.push_back(p1);
-	ParticleShape* p2 = new ParticleShape(Vector3(-30.0, 0.0, 15.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 1, 6, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
+	ParticleShape* p2 = new ParticleShape(Vector3(-30.0, -1.0, 15.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 2500, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
 	myPops.push_back(p2);
-	ParticleShape* p3 = new ParticleShape(Vector3(15.0, -15.0, -30.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 1, 6, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
+	ParticleShape* p3 = new ParticleShape(Vector3(15.0, 0.0, -30.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 1800, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
 	myPops.push_back(p3);
 
 	BuoyancyForceGenerator* b = new BuoyancyForceGenerator(1000, Vector3(0, 0, 0));
@@ -237,8 +249,9 @@ void ParticleSys::generateBuoyancyDemo()
 	myForceReg.add(p2, b);
 	myForceReg.add(p3, b);
 
+	
 	GravityGenerator* g = new GravityGenerator(Vector3(0, -9.8, 0));
 	myForceReg.add(p1, g);
 	myForceReg.add(p2, g);
-	myForceReg.add(p3, g);
+	myForceReg.add(p3, g);	
 }

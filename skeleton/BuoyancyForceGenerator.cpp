@@ -4,10 +4,11 @@
 
 BuoyancyForceGenerator::BuoyancyForceGenerator(float d, Vector3 pos) : ForceGenerator({0.0, 0.0, 0.0}, true)
 {
-	_liquid_particle = new ParticleShape(pos, Vector3(0, 0, 0), Vector3(0, 0, 0), 1, 800000, 6000, true, Vector4(0.4, 0.0, 0.8, 0.2), Vector3(20, 2, 20));
+	_liquid_density = d;
+	_liquid_particle = new ParticleShape(pos, Vector3(0, 0, 0), Vector3(0, 0, 0), 0.60, 400000, 6000, true, Vector4(0.4, 0.0, 0.8, 0.2), Vector3(20, 1, 20));
 }
 
-void BuoyancyForceGenerator::updateForce(Particle* pop, double t)
+void BuoyancyForceGenerator::update(Particle* pop, double t)
 {
 	float h = pop->getPos().y;
 	float h0 = _liquid_particle->getPos().y;
@@ -29,6 +30,7 @@ void BuoyancyForceGenerator::updateForce(Particle* pop, double t)
 
 	}
 	f.y = _liquid_density * v * immersed * _gravity;
+	std::cout << "Buoyancy: " << f.y << std::endl;
 	pop->addForce(f);
 }
 

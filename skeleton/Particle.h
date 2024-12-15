@@ -20,6 +20,7 @@ public:
 	float getLT() { return lifeTime; };
 	Vector3 getPos() { return pose.p; };
 	Vector3 getVel() { return vel; };
+	float getMass() { return mass; };
 	inline void addForce(Vector3 f) { forceAcum += f; };
 	inline void clearForce() { forceAcum *= 0; };
 
