@@ -237,11 +237,14 @@ void ParticleSys::generateHairTieDemo() {
 
 void ParticleSys::generateBuoyancyDemo()
 {
-	ParticleShape* p1 = new ParticleShape(Vector3(-20.0, 1.0, -20.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 2000, 6000, true, Vector4(1.0, 0.8, 1.0, 1.0), Vector3(1, 2, 1));
+	//CUBO ROJO
+	ParticleShape* p1 = new ParticleShape(Vector3(20.0, 1.0, 20.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 6, 6000, true, Vector4(1.0, 0.0, 0.0, 1.0), Vector3(0.15, 0.3, 0.15));
 	myPops.push_back(p1);
-	ParticleShape* p2 = new ParticleShape(Vector3(-30.0, -1.0, 15.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 2500, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
+	//CUBO VERDE
+	ParticleShape* p2 = new ParticleShape(Vector3(30.0, -1.0, 15.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 2.3, 6000, true, Vector4(0.0, 1.0, 0.0, 1.0), Vector3(0.1, 0.25, 0.1));
 	myPops.push_back(p2);
-	ParticleShape* p3 = new ParticleShape(Vector3(15.0, 0.0, -30.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 1800, 6000, true, Vector4(1.0, 0.9, 1.0, 1.0), Vector3(1, 2, 1));
+	//CUBO AZUL
+	ParticleShape* p3 = new ParticleShape(Vector3(15.0, 0.0, 30.0), Vector3(0, 0, 0), Vector3(0, 0, 0), 0.98, 9, 6000, true, Vector4(0.0, 0.0, 1.0, 1.0), Vector3(0.3, 0.5, 0.2));
 	myPops.push_back(p3);
 
 	BuoyancyForceGenerator* b = new BuoyancyForceGenerator(1000, Vector3(0, 0, 0));

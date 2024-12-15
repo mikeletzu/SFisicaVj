@@ -1,7 +1,7 @@
 #include "RigidDinBody.h"
 
 RigidDinBody::RigidDinBody(physx::PxScene* scene, physx::PxPhysics* phys, Vector4 color, physx::PxTransform Pos,
-	Vector3 LinearVel, Vector3 AngularVel, float lifetime, float Density, bool isBox, Vector3 boxSize, float Dam) :
+	Vector3 LinearVel, Vector3 AngularVel, float lifetime, float Density, bool isBox, Vector3 boxSize, float Dam, physx::PxMaterial* mat) :
 	_gScene(scene), _gPhysics(phys), _density(Density), _size(boxSize)
 	{
 		physx::PxRigidDynamic* new_solid;
@@ -17,6 +17,9 @@ RigidDinBody::RigidDinBody(physx::PxScene* scene, physx::PxPhysics* phys, Vector
 		else {
 			shape = CreateShape(physx::PxSphereGeometry(boxSize.x));
 		}
+		if (mat != NULL) {
+			shape->setMaterials(&mat, 1);
+		}
 		new_solid->attachShape(*shape);
 
 		_renderItem = new RenderItem(shape, new_solid, color);
@@ -31,7 +34,7 @@ RigidDinBody::RigidDinBody(physx::PxScene* scene, physx::PxPhysics* phys, Vector
 		float iD = (1 / 12) * mass * (boxSize.x * boxSize.x + boxSize.y * boxSize.y);
 		_body->setMassSpaceInertiaTensor({iH,iW,iD});
 		// Calculo automatico:
-		//physx::PxRigidBodyExt::updateMassAndInertia(*new_solid, Density);
+		physx::PxRigidBodyExt::updateMassAndInertia(*new_solid, Density);
 
 	}
 

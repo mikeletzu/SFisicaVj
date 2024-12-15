@@ -264,6 +264,7 @@
     <ClCompile Include="ParticleSys.cpp" />
     <ClCompile Include="PopForceRegistry.cpp" />
     <ClCompile Include="Proyectil.cpp" />
+    <ClCompile Include="RBForceRegistry.cpp" />
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="ParticleSys.h" />
     <ClInclude Include="PopForceRegistry.h" />
     <ClInclude Include="Proyectil.h" />
+    <ClInclude Include="RBForceRegistry.h" />
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />

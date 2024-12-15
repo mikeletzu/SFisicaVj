@@ -1,8 +1,10 @@
 #pragma once
 #include "Zone.h"
-#include "PopForceRegistry.h"
+#include "RBForceRegistry.h"
 #include "RigidDinBody.h"
 #include "GravityGenerator.h"
+#include "WindGenerator.h"
+#include <list>
 
 class RigidBodySys
 {
@@ -15,7 +17,7 @@ class RigidBodySys
 	private:
 		Zone* _zone;
 		std::list<RigidDinBody*> myBodies;
-		PopForceRegistry myForceReg;
+		RBForceRegistry myForceReg;
 		physx::PxScene* _gScene;
 		physx::PxPhysics* _gPhysics;
 

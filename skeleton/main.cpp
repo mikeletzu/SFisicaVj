@@ -112,6 +112,8 @@ void stepPhysics(bool interactive, double t)
 		mySysA->update(t);
 	if (mySysB != nullptr)
 		mySysB->update(t);
+	if (mySysC != nullptr)
+		mySysC->update(t);
 	if (p != nullptr)
 		p->integrate(t);
 
