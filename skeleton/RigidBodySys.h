@@ -4,6 +4,7 @@
 #include "RigidDinBody.h"
 #include "GravityGenerator.h"
 #include "WindGenerator.h"
+#include "WhirlGenerator.h"
 #include <list>
 
 class RigidBodySys
@@ -13,6 +14,8 @@ class RigidBodySys
 		void update(double t);
 		void generate(int amount);
 		bool eraseCheck(RigidDinBody* rb);
+		void addBody(RigidDinBody* rb);
+		void addTimedForce(ForceGenerator* fg, int timer);
 
 	private:
 		Zone* _zone;
@@ -20,6 +23,7 @@ class RigidBodySys
 		RBForceRegistry myForceReg;
 		physx::PxScene* _gScene;
 		physx::PxPhysics* _gPhysics;
+		std::vector<int> timers;
 
 		bool isOutZone(Vector3 p);
 

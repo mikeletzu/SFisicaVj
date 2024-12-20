@@ -8,22 +8,24 @@
 #include "GravityGenerator.h"
 #include "PopForceRegistry.h"
 #include "BuoyancyForceGenerator.h"
+#include "WhirlGenerator.h"
 
 
 enum PSType
 {
-	fog, explosion, snow, springs, buoyancy
+	fog, explosion, snow, springs, buoyancy, camera, trail, goal
 };
 
 
 class ParticleSys
 {
 public:
-	ParticleSys(PSType type);
+	ParticleSys(PSType type, RigidDinBody* anch = nullptr);
 	void update(double t);
 	void generate(int amount);
 	bool eraseCheck(Particle* p);
 	void addForce(ForceGenerator* f);
+	Particle* getCamPop();
 
 private:
 	Zone* _zone;
@@ -37,11 +39,14 @@ private:
 	bool isOutZone(Vector3 p);
 	int interval;
 	PSType _type;
+	RigidDinBody* toTrail = nullptr;
 
 	void generateSpringAnchDemo();
 	void generateSpringDuoDemo();
 	void generateHairTieDemo();
 	void generateBuoyancyDemo();
+
+	void generateGameSnow(int amount);
 };
 
 /*

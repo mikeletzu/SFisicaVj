@@ -1,6 +1,7 @@
 #pragma once
 #include "WindGenerator.h"
 
+class RigidDinBody;
 class Particle;
 
 class WhirlGenerator :
@@ -12,6 +13,7 @@ public:
         _pos = pos;
     };
     virtual void update(Particle* pop, double t) override;
+    virtual void update(RigidDinBody* pop, double t) override;
 
 private:
     Vector3 _pos;

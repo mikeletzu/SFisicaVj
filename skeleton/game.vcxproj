@@ -255,7 +255,9 @@
   <ItemGroup>
     <ClCompile Include="BuoyancyForceGenerator.cpp" />
     <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="Carrito.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GravityGenerator.cpp" />
     <ClCompile Include="HairTieGenerator.cpp" />
     <ClCompile Include="main.cpp" />
@@ -278,8 +280,10 @@
   <ItemGroup>
     <ClInclude Include="BuoyancyForceGenerator.h" />
     <ClInclude Include="callbacks.hpp" />
+    <ClInclude Include="Carrito.h" />
     <ClInclude Include="core.hpp" />
     <ClInclude Include="ForceGenerator.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GravityGenerator.h" />
     <ClInclude Include="HairTieGenerator.h" />
     <ClInclude Include="Particle.h" />
@@ -294,6 +298,7 @@
     <ClInclude Include="RigidBodySys.h" />
     <ClInclude Include="RigidDinBody.h" />
     <ClInclude Include="SpringGenerator.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="WhirlGenerator.h" />
     <ClInclude Include="WindGenerator.h" />
     <ClInclude Include="Zone.h" />

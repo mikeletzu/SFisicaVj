@@ -11,7 +11,7 @@ public:
 		if (isCube)
 			renderItem = new RenderItem(CreateShape(physx::PxBoxGeometry(BoxSize.x, BoxSize.y, BoxSize.z)), &pose, Col);
 		else
-			renderItem = new RenderItem(CreateShape(physx::PxSphereGeometry(1.0f)), &pose, Col);
+			renderItem = new RenderItem(CreateShape(physx::PxSphereGeometry(float(BoxSize.x))), &pose, Col);
 	}
 	~ParticleShape() {}
 

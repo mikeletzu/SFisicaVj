@@ -29,6 +29,7 @@
 
 #include "Render.h"
 #include <assert.h>
+#include <iostream>
 
 using namespace physx;
 
@@ -249,7 +250,7 @@ void setupDefaultWindow(const char *name)
 
 	glutInit(&argc, argv);
 	
-	glutInitWindowSize(512, 512);
+	glutInitWindowSize(1200, 600);
 	glutInitDisplayMode(GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH);
 	int mainHandle = glutCreateWindow(name);
 	glutSetWindow(mainHandle);
@@ -261,7 +262,7 @@ void setupDefaultWindow(const char *name)
 void setupDefaultRenderState()
 {
 	// Setup default render states
-	glClearColor(0.3f, 0.4f, 0.5f, 1.0);
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -281,14 +282,22 @@ void setupDefaultRenderState()
 	glEnable(GL_LIGHT0);
 }
 
-
 void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNear, PxReal clipFar)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Display text
-	glColor4f(1.0f, 0.2f, 0.2f, 1.0f);
-	drawText(display_text, 0, 0);
+	glColor4f(0.8f, 0.8f, 0.8f, 0.8f);
+	//drawText(display_text, 20, 20);
+
+	for (Text* t : display_texts) {
+		if (t) {
+			if (t->getShow()) {
+				glColor4f(t->getColor().x, t->getColor().y, t->getColor().z, t->getColor().w);
+				drawText(t->getText(), t->getPos().x, t->getPos().y);
+			}
+		}
+	}
 
 	// Setup camera
 	glMatrixMode(GL_PROJECTION);
@@ -297,7 +306,7 @@ void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNe
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(GLdouble(cameraEye.x), GLdouble(cameraEye.y), GLdouble(cameraEye.z), GLdouble(cameraEye.x + cameraDir.x), GLdouble(cameraEye.y + cameraDir.y), GLdouble(cameraEye.z + cameraDir.z), 0.0, 1.0, 0.0);
+	gluLookAt(GLdouble(cameraEye.x), GLdouble(cameraEye.y), GLdouble(cameraEye.z), GLdouble(cameraDir.x), GLdouble(cameraDir.y), GLdouble(cameraDir.z), 0.0, 1.0, 0.0);
 
 	glColor4f(0.4f, 0.4f, 0.4f, 1.0f);
 

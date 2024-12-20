@@ -7,6 +7,7 @@
 #include "core.hpp"
 #include "RenderUtils.hpp"
 #include "callbacks.hpp"
+//#include "Text.h"
 
 #include "ParticleShape.h"
 #include "RigidDinBody.h"
@@ -17,7 +18,10 @@
 #include "GravityGenerator.h"
 #include "WhirlGenerator.h"
 
-std::string display_text = "Simulacion Fisica - Mikele López de la Hoz";
+#include "GameManager.h"
+
+std::list<Text*> display_texts;
+//std::string display_text = "Practica final (SIM FISICA) - Mikele López de la Hoz";
 
 using namespace physx;
 
@@ -51,6 +55,7 @@ RigidDinBody* dinBody = nullptr;
 
 Particle* p = nullptr;
 
+GameManager* gMan = nullptr;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -76,6 +81,8 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
+#pragma region ELEMENTOS DE PRACTICAS COMENTADAS
+	/*
 	Vector3 xAxis(10, 0, 0), yAxis(0, 10, 0), zAxis(0, 0, 10);
 	x = PxTransform(xAxis.x, xAxis.y, xAxis.z);
 	y = PxTransform(yAxis.x, yAxis.y, yAxis.z);
@@ -85,6 +92,7 @@ void initPhysics(bool interactive)
 	yItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &y, { 0.0, 1.0, 0.0, 1.0 });
 	zItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &z, { 0.0, 0.0, 1.0, 1.0 });
 	originItem = new RenderItem(CreateShape(PxSphereGeometry(1.0f)), &o, { 1.0, 1.0, 1.0, 1.0 });
+	*/
 
 	//Generar suelo
 	/*
@@ -96,8 +104,14 @@ void initPhysics(bool interactive)
 	*/
 
 	//mySysA = new ParticleSys(springs);
-	mySysB = new ParticleSys(buoyancy);
+	//mySysB = new ParticleSys(buoyancy);
 	//mySysC = new RigidBodySys(gScene, gPhysics);
+
+#pragma endregion ejes, suelo y creacion de distintos sistemas
+
+	display_texts.push_back(new Text("Practica final (SIM FISICA) - Mikele Lopez de la Hoz", { 133, 300 }, { 1.0, 1.0, 1.0, 0.6 }));
+	display_texts.push_back(new Text("press 'b' to start", { 200, 286 }, { 1.0, 1.0, 1.0, 0.6 }));
+	gMan = new GameManager(gScene, gPhysics);
 }
 
 
@@ -108,6 +122,8 @@ void stepPhysics(bool interactive, double t)
 {
 	PX_UNUSED(interactive);
 
+#pragma region ELEMENTOS DE PRACTICAS COMENTADAS
+	/*
 	if (mySysA != nullptr)
 		mySysA->update(t);
 	if (mySysB != nullptr)
@@ -116,10 +132,12 @@ void stepPhysics(bool interactive, double t)
 		mySysC->update(t);
 	if (p != nullptr)
 		p->integrate(t);
+	*/
+#pragma endregion 
 
+	gMan->update(t);
 	gScene->simulate(t);
 	gScene->fetchResults(true);
-
 }
 
 // Function to clean data
@@ -152,10 +170,30 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 	switch(toupper(key))
 	{
-	//case 'B': break;
-	//case ' ':	break;
-	case ' ':
+	case 'B': //tecla b para empezar
 	{
+		gMan->initGame();
+		gMan->moveProta(front);
+		break;
+	}
+	case 'J':
+	{
+		gMan->moveProta(left);
+		break;
+	}
+	case 'I':
+	{
+		gMan->moveProta(front);
+		break;
+	}
+	case 'L':
+	{
+		gMan->moveProta(right);
+		break;
+	}
+	case 'K':
+	{
+		gMan->moveProta(back);
 		break;
 	}
 	default:

@@ -21,7 +21,8 @@ public:
 	Vector3 getPos() { return pose.p; };
 	Vector3 getVel() { return vel; };
 	float getMass() { return mass; };
-	inline void addForce(Vector3 f) { forceAcum += f; std::cout << "Force added: " << f.y << " Total: " << forceAcum.y << "\n";};
+	Vector3 setVel(Vector3 v) { vel = v; };
+	inline void addForce(Vector3 f) { forceAcum += f;};
 	inline void clearForce() { forceAcum *= 0; };
 
 protected:

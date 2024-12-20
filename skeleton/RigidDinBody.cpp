@@ -40,4 +40,6 @@ RigidDinBody::RigidDinBody(physx::PxScene* scene, physx::PxPhysics* phys, Vector
 
 RigidDinBody::~RigidDinBody()
 {
+	std::cout << "rdb borrandosee\n";
+
 }

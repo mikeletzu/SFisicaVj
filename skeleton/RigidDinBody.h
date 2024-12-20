@@ -2,6 +2,7 @@
 #include <PxPhysicsAPI.h>
 #include "RenderUtils.hpp"
 #include "core.hpp"
+#include <iostream>
 
 class RigidDinBody
 {

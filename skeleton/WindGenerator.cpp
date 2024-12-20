@@ -24,9 +24,11 @@ void WindGenerator::update(RigidDinBody* pop, double t)
 		Vector3 v = pop->getVel();
 		Vector3 dif = _f - v;
 		Vector3 dragF = (_k1 * dif) + (_k2 * dif.magnitude() * dif);
-
 		//Apply the drag force
-		pop->addTorque(dragF);
+		if (withTorque) {
+			std::cout << "winded ";
+			pop->addTorque(dragF);
+		}
 		pop->addForce(dragF);
 	}
 }

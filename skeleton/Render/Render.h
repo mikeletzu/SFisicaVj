@@ -46,8 +46,12 @@
 #error platform not supported.
 #endif
 #include <string>
+#include <list>
+#include "../Text.h"
 
-extern std::string display_text;
+
+extern std::list<Text*> display_texts;
+//extern std::string display_text;
 
 namespace Snippets
 {

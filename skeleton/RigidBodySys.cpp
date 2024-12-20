@@ -3,16 +3,32 @@
 RigidBodySys::RigidBodySys(physx::PxScene* scene, physx::PxPhysics* phys):
 	_gScene(scene), _gPhysics(phys)
 {
-	_zone = new Zone({ -300,-300,-300 }, { 200,200,200 });
-	generateRBSDemo();
+	_zone = new Zone({ 1,1,1 }, { 1,1,1 });
 }
 
 void RigidBodySys::update(double t)
 {
+	int i = 0;
 	for (auto it = myForceReg.begin(); it != myForceReg.end(); ++it) {
 		it->second->update(it->first, t);
+			timers.at(i)--;
+		++i;
 	}
 }
+
+void RigidBodySys::addBody(RigidDinBody* rb)
+{
+	myBodies.push_back(rb);
+}
+
+void RigidBodySys::addTimedForce(ForceGenerator* fg, int timer)
+{
+	for (auto it = myBodies.begin(); it != myBodies.end(); ++it) {
+		myForceReg.add(*it, fg);
+	}
+	timers.push_back(timer);
+}
+
 
 void RigidBodySys::generateRBSDemo()
 {

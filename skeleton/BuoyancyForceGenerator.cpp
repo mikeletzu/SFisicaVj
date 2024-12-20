@@ -30,7 +30,6 @@ void BuoyancyForceGenerator::update(Particle* pop, double t)
 
 	}
 	f.y = _liquid_density * v * immersed * _gravity;
-	std::cout << "Buoyancy: " << f.y << std::endl;
 	pop->addForce(f);
 }
 

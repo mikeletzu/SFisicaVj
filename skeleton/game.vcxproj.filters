@@ -60,6 +60,10 @@
     <ClCompile Include="RBForceRegistry.cpp">
       <Filter>Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Carrito.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -121,6 +125,13 @@
     <ClInclude Include="RBForceRegistry.h">
       <Filter>Systems</Filter>
     </ClInclude>
+    <ClInclude Include="Carrito.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Text.h">
+      <Filter>Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -137,6 +148,9 @@
     </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{ca67d3de-0d59-410f-9094-8f8db02fa4de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{b196984b-c752-4a01-b5b6-a09c69506ab1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
